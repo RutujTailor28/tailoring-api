@@ -6,7 +6,7 @@ const { use } = require("express/lib/router");
 const path = require("path");
 const advancedResults = require("../Middleware/advancedResults");
 const User = require("../Models/user");
-
+const Price = require("../Models/Price")
 /**
  * @desc    insert order
  * @route   POST /api/v1/orders/:id
@@ -16,6 +16,7 @@ const User = require("../Models/user");
 exports.insertupdate = asyncHandler(async (req, res, next) => {
   console.log("request data => ", req.body);
   const {
+    id,
     deliveryDate,
     customerId,
     pantCount,
@@ -28,10 +29,9 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
     status,
     createdDate,
   } = req.body;
-  const id = req.params.id;
-  const orderExist = await Order.findById(id);
 
-  if (!orderExist) {
+ 
+  if(!id) {
     await Order.create({
       deliveryDate: deliveryDate,
       customerId: customerId,
@@ -52,26 +52,50 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
       message: "Order added successfully",
     });
   } else {
-    await Order.update({
-      deliveryDate: deliveryDate,
-      customerId: customerId,
-      pantCount: pantCount,
-      shirtCount: shirtCount,
-      kurtaCount: kurtaCount,
-      blazerCount: blazerCount,
-      comment: comment,
-      totalItem: totalItem,
-      totalCost: totalCost,
-      status: status,
-      createdDate: createdDate,
-    });
-
-    res.status(200).json({
-      success: true,
-      data: {},
-      message: "Order updated successfully",
-    });
+    const orderExist = await Order.findById(id);
+    if (!orderExist) {
+      await Order.create({
+        deliveryDate: deliveryDate,
+        customerId: customerId,
+        pantCount: pantCount,
+        shirtCount: shirtCount,
+        kurtaCount: kurtaCount,
+        blazerCount: blazerCount,
+        comment: comment,
+        totalItem: totalItem,
+        totalCost: totalCost,
+        status: status,
+        createdDate: createdDate,
+      });
+  
+      res.status(200).json({
+        success: true,
+        data: {},
+        message: "Order added successfully",
+      });
+    } else {
+      await Order.findByIdAndUpdate(id, {
+        deliveryDate: deliveryDate,
+        customerId: customerId,
+        pantCount: pantCount,
+        shirtCount: shirtCount,
+        kurtaCount: kurtaCount,
+        blazerCount: blazerCount,
+        comment: comment,
+        totalItem: totalItem,
+        totalCost: totalCost,
+        status: status,
+      });
+  
+      res.status(200).json({
+        success: true,
+        data: {},
+        message: "Order updated successfully",
+      });
+    }
   }
+
+  
 });
 
 /**
@@ -94,7 +118,6 @@ exports.getOrders = asyncHandler(async (req, res, next) => {
  * @type {function(*=, *=, *=): Promise<unknown>}
  */
 exports.getOrder = asyncHandler(async (req, res, next) => {
-  console.log("req", Order);
   const order = await Order.findById(req.body.id);
   //
   res.status(200).json({
@@ -141,3 +164,47 @@ const getDataStructure = (Data) => {
 
   return newResponse;
 };
+
+exports.getAllClothingPrice = asyncHandler(async (req, res, next) => {
+  const clothingPriceData = await Price.find({ userId: req.user.id });
+  console.log('clothingPriceData', clothingPriceData)
+
+  res.status(200).json({
+    success: true,
+    data: clothingPriceData,
+    message: "",
+  });
+});
+
+
+exports.InsertUpdateClothingPrice = asyncHandler(async (req, res, next) => {
+  const {
+    id,
+    price,
+    type,
+  } = req.body;
+  if(!id) {
+    await Price.create({
+      price: price,
+      type: type,
+      userId: req.user.id,
+    });
+    res.status(200).json({
+      success: true,
+      data: {},
+      message: "Price added successfully",
+    });
+  } else {
+    await Price.findByIdAndUpdate(id, {
+      dprice: price,
+      type: type,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {},
+      message: "Price updated successfully",
+    });
+  }
+});
+
