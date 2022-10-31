@@ -185,3 +185,30 @@
  *         schema:
  *           $ref: '#/definitions/customerResponse'
  */
+
+/**
+ * @swagger
+ * /customer/getCustomer:
+ *   post:
+ *     tags:
+ *       - Customers
+ *     description: Get a customer by id
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         description: Token should be like <Bearer {TOKEN}>
+ *         required: true
+ *         type: string
+ *       - name: customerId
+ *         in: body
+ *         description: Customer
+ *         required: true
+ *         type: string
+ *     responses:
+ *       201:
+ *         description:  On Success
+ *         schema:
+ *           $ref: '#/definitions/customerResponse'
+ */

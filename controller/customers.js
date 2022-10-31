@@ -175,6 +175,28 @@ exports.searchCustomer = asyncHandler(async (req, res, next) => {
     message: "",
   });
 });
+
+/**
+ * @desc    get customer
+ * @route   POST /api/v1/customer/getCustomer
+ * @access  Private
+ */
+
+exports.getCustomer = asyncHandler(async (req, res, next) => {
+  console.log("req ==> ",req);
+  const {customerId} = req.body;
+  console.log("customerId ==> ",customerId);
+  const customerData = await Customer.findById(customerId);
+  console.log("customerData ==> ",customerData);
+  const newResponse = getCustomerDataStructure(customerData);
+  console.log("newResponse ==> ",newResponse);
+  res.status(200).json({
+    success: true,
+    data: newResponse,
+    message: "",
+  });
+});
+
 const getCustomerDataStructure = (customerData) => {
   const newResponse =
     (customerData &&
