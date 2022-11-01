@@ -44,6 +44,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
       totalCost: totalCost,
       status: status,
       createdDate: createdDate,
+      userId: req.user.id,
     });
 
     res.status(200).json({
@@ -66,6 +67,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
         totalCost: totalCost,
         status: status,
         createdDate: createdDate,
+        userId: req.user.id,
       });
   
       res.status(200).json({
@@ -105,7 +107,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
  */
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
-  const order = await Order.find().populate("customerId");
+  const order = await Order.find({ userId: req.user.id });
   res.status(200).json({
     success: true,
     data: order,
@@ -167,8 +169,7 @@ const getDataStructure = (Data) => {
 
 exports.getAllClothingPrice = asyncHandler(async (req, res, next) => {
   const clothingPriceData = await Price.find({ userId: req.user.id });
-  console.log('clothingPriceData', clothingPriceData)
-
+  
   res.status(200).json({
     success: true,
     data: clothingPriceData,
@@ -186,7 +187,6 @@ exports.InsertUpdateClothingPrice = asyncHandler(async (req, res, next) => {
   if(!id) {
     await Price.create({
       price: price,
-      type: type,
       userId: req.user.id,
     });
     res.status(200).json({
@@ -196,10 +196,8 @@ exports.InsertUpdateClothingPrice = asyncHandler(async (req, res, next) => {
     });
   } else {
     await Price.findByIdAndUpdate(id, {
-      dprice: price,
-      type: type,
+      price: price,
     });
-
     res.status(200).json({
       success: true,
       data: {},

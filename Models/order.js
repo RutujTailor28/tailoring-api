@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 
 const OrderSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    },
     deliveryDate: {
         type: Date,
         default: Date.now

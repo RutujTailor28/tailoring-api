@@ -6,8 +6,7 @@ const priceSchema = new mongoose.Schema({
         ref: 'User',
     },
     price: {
-        type: String,
-        required: [true,'Please provide a customer name']
+        type: Array,
     },
     type: {
         type: String,
