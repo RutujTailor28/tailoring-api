@@ -6,6 +6,10 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
     },
+    billNumber: {
+        type: Number,
+        default: 0
+    },
     deliveryDate: {
         type: Date,
         default: Date.now

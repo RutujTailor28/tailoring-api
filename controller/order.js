@@ -14,7 +14,6 @@ const Price = require("../Models/Price")
  */
 
 exports.insertupdate = asyncHandler(async (req, res, next) => {
-  console.log("request data => ", req.body);
   const {
     id,
     deliveryDate,
@@ -32,6 +31,8 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
 
  
   if(!id) {
+
+    const order = await Order.find({ userId: req.user.id });
     await Order.create({
       deliveryDate: deliveryDate,
       customerId: customerId,
@@ -45,6 +46,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
       status: status,
       createdDate: createdDate,
       userId: req.user.id,
+      billNumber: order.length + 1
     });
 
     res.status(200).json({
