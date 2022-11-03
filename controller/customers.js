@@ -207,7 +207,7 @@ const getCustomerDataStructure = (customerData) => {
           mobile: data?.customerPhone || "",
           measurement: {
             shirt: data?.customerMeasurement?.shirt || "",
-            pant: data?.customerMeasurement?.pant || "",
+            pent: data?.customerMeasurement?.pent || "",
             kurta: data?.customerMeasurement?.kurta || "",
             blazer: data?.customerMeasurement?.blazer || "",
             safari:data?.customerMeasurement.safari || "",
