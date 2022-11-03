@@ -109,7 +109,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
  */
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
-  const order = await Order.find({ userId: req.user.id });
+  const order = await Order.find({ userId: req.user.id }).populate("customerId");
   res.status(200).json({
     success: true,
     data: order,
@@ -171,10 +171,9 @@ const getDataStructure = (Data) => {
 
 exports.getAllClothingPrice = asyncHandler(async (req, res, next) => {
   const clothingPriceData = await Price.find({ userId: req.user.id });
-  
   res.status(200).json({
     success: true,
-    data: clothingPriceData,
+    data: clothingPriceData[0],
     message: "",
   });
 });

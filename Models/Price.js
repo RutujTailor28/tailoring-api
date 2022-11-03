@@ -6,7 +6,7 @@ const priceSchema = new mongoose.Schema({
         ref: 'User',
     },
     price: {
-        type: Array,
+        type: Object,
     },
     type: {
         type: String,

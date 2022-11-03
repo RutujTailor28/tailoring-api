@@ -26,7 +26,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     // console.log("decoded ==> ",decoded);
     // req.user = await User.findById(decoded.id);
     const userExist = await User.findOne({ authToken: token });
-    console.log("userExist ==> ", userExist);
+    
     if (!userExist) {
       return next(new ErrorResponse(`User not found`, 404));
     } else {
