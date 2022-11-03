@@ -210,6 +210,10 @@ const getCustomerDataStructure = (customerData) => {
             pant: data?.customerMeasurement?.pant || "",
             kurta: data?.customerMeasurement?.kurta || "",
             blazer: data?.customerMeasurement?.blazer || "",
+            safari:data?.customerMeasurement.safari || "",
+            koti:data?.customerMeasurement.koti || "",
+            jodhpuriKoti:data?.customerMeasurement.jodhpuriKoti || "",
+            paijama:data?.customerMeasurement.paijama || "",
           },
           date: data?.createdAt || "",
         };
