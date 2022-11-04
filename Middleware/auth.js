@@ -28,7 +28,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     const userExist = await User.findOne({ authToken: token });
     
     if (!userExist) {
-      return next(new ErrorResponse(`User not found`, 404));
+      return next(new ErrorResponse(`Unauthorize access`, 401));
     } else {
       req.user = userExist;
       next();

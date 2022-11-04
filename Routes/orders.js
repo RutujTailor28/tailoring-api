@@ -6,7 +6,8 @@ const {
   insertupdate,
   deleteOrder,
   getAllClothingPrice,
-  InsertUpdateClothingPrice
+  InsertUpdateClothingPrice,
+  getOrderByCostomer
 } = require("../controller/order");
 const router = express.Router();
 const { protect } = require("../Middleware/auth");

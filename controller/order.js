@@ -109,7 +109,13 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
  */
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
-  const order = await Order.find({ userId: req.user.id }).populate("customerId");
+  const { customerId } = req.body;
+  let order;
+  if(customerId) {
+    order = await Order.find({ userId: req.user.id, customerId: customerId }).populate("customerId");
+  } else {
+    order = await Order.find({ userId: req.user.id }).populate("customerId");
+  }
   res.status(200).json({
     success: true,
     data: order,
@@ -206,4 +212,6 @@ exports.InsertUpdateClothingPrice = asyncHandler(async (req, res, next) => {
     });
   }
 });
+
+
 
