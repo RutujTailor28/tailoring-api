@@ -30,7 +30,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Please provide all mandatory details", 200));
   }
 
-  if (customerId !== 0) {
+  if (customerId) {
     await Customer.findByIdAndUpdate(customerId, {
       customerName: name,
       customerEmail: email,
