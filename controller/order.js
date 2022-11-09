@@ -110,12 +110,16 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
   const { customerId } = req.body;
+  console.log('req.body',req.body);
   let order;
   if(customerId) {
+    console.log('customerId', customerId)
     order = await Order.find({ userId: req.user.id, customerId: customerId }).populate("customerId");
   } else {
+    console.log('customerId12', customerId)
     order = await Order.find({ userId: req.user.id }).populate("customerId");
   }
+  console.log('order',order)
   res.status(200).json({
     success: true,
     data: order,
