@@ -19,9 +19,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
     deliveryDate,
     customerId,
     pantCount,
-    shirtCount,
-    kurtaCount,
-    blazerCount,
+    orderItem,
     comment,
     totalItem,
     totalCost,
@@ -29,7 +27,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
     createdDate,
   } = req.body;
 
- 
+
   if(!id) {
 
     const order = await Order.find({ userId: req.user.id });
@@ -37,9 +35,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
       deliveryDate: deliveryDate,
       customerId: customerId,
       pantCount: pantCount,
-      shirtCount: shirtCount,
-      kurtaCount: kurtaCount,
-      blazerCount: blazerCount,
+      orderItem: orderItem,
       comment: comment,
       totalItem: totalItem,
       totalCost: totalCost,
@@ -61,9 +57,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
         deliveryDate: deliveryDate,
         customerId: customerId,
         pantCount: pantCount,
-        shirtCount: shirtCount,
-        kurtaCount: kurtaCount,
-        blazerCount: blazerCount,
+        orderItem: orderItem,
         comment: comment,
         totalItem: totalItem,
         totalCost: totalCost,
@@ -82,9 +76,7 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
         deliveryDate: deliveryDate,
         customerId: customerId,
         pantCount: pantCount,
-        shirtCount: shirtCount,
-        kurtaCount: kurtaCount,
-        blazerCount: blazerCount,
+        orderItem: orderItem,
         comment: comment,
         totalItem: totalItem,
         totalCost: totalCost,
@@ -183,8 +175,8 @@ exports.getAllClothingPrice = asyncHandler(async (req, res, next) => {
   const clothingPriceData = await Price.find({ userId: req.user.id });
   res.status(200).json({
     success: true,
-    data: clothingPriceData[0],
-    message: "",
+    data: clothingPriceData[0] || {},
+    message: "Price List",
   });
 });
 

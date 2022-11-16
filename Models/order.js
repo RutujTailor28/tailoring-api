@@ -18,21 +18,8 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Customer',
     },
-    pantCount: {
-        type: Number,
-        default:0
-    },
-    shirtCount: {
-        type: Number,
-        default:0
-    },
-    kurtaCount: {
-        type: Number,
-        default:0
-    },
-    blazerCount: {
-        type: Number,
-        default:0
+    orderItem: {
+        type: Object,
     },
     comment: {
         type: String,
