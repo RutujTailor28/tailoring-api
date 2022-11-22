@@ -33,6 +33,13 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         default:0
     },
+    currentPrice: {
+        type: Object,
+        default: {}
+    },
+    billingDate: {
+        type: Date,
+    },
     status: {
         type: String,
         default:''

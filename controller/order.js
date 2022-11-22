@@ -25,8 +25,10 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
     totalCost,
     status,
     createdDate,
+    currentPrice,
   } = req.body;
 
+  const addBillingDate = status === 'complete' ? Date.now() : ""
 
   if(!id) {
 
@@ -41,6 +43,8 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
       totalCost: totalCost,
       status: status,
       createdDate: createdDate,
+      currentPrice: currentPrice,
+      billingDate: addBillingDate,
       userId: req.user.id,
       billNumber: order.length + 1
     });
@@ -63,7 +67,9 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
         totalCost: totalCost,
         status: status,
         createdDate: createdDate,
+        currentPrice: currentPrice,
         userId: req.user.id,
+        billingDate: addBillingDate,
       });
   
       res.status(200).json({
@@ -81,6 +87,8 @@ exports.insertupdate = asyncHandler(async (req, res, next) => {
         totalItem: totalItem,
         totalCost: totalCost,
         status: status,
+        currentPrice: currentPrice,
+        billingDate: addBillingDate,
       });
   
       res.status(200).json({
